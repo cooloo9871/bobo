@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: fbs-bobo
+  namespace: bobo
+  labels:
+    run: fbs.bobo
+spec:
+  containers:
+  - name: myfbs
+    image: quay.io/hahappyman/alp.myfbs:latest
+    imagePullPolicy: IfNotPresent
+    ports:
+     - containerPort: 4000
+       hostPort: 9090
+    volumeMounts:
+    - mountPath: /srv
+      name: myfbs-volume
+  volumes:
+  - name: myfbs-volume
+    persistentVolumeClaim:
+      claimName: pvc-bobo
+  nodeName: w2
