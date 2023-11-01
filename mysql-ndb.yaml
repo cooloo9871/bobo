@@ -3,7 +3,7 @@
 apiVersion: mysql.oracle.com/v1
 kind: NdbCluster
 metadata:
-  name: example-ndb
+  name: mysql-ndb
   namespace: mysql
 spec:
   redundancyLevel: 1   # MySQL Cluster Replica
