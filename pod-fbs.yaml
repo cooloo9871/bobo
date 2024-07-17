@@ -20,4 +20,5 @@ spec:
   - name: myfbs-volume
     persistentVolumeClaim:
       claimName: pvc-bobo
-  nodeName: w2
+  nodeSelector:
+    run: bobo
