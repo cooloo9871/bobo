@@ -16,7 +16,7 @@ spec:
         run: bobo
     spec:
       containers:
-      - image: quay.io/hahappyman/alp.goweb:1.0.0
+      - image: quay.io/hahappyman/alp.goweb:v2
         name: myweb
         ports:
          - containerPort: 8080
