@@ -117,3 +117,14 @@ spec:
   ports:
   - port: 80
     targetPort: 9090
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: svc-fbs
+spec:
+  selector:
+    run: fbs.bobo
+  ports:
+  - port: 4000
+    targetPort: 4000
