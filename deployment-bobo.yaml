@@ -115,8 +115,8 @@ spec:
   selector:
     run: mydb
   ports:
-  - port: 80
-    targetPort: 9090
+  - port: 3306
+    targetPort: 3306
 ---
 kind: Service
 apiVersion: v1
