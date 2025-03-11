@@ -3,7 +3,6 @@ apiVersion: apps/v1
 metadata:
   labels:
     run: bobo
-  namespace: bobo
   name: bobo
 spec:
   replicas: 2
@@ -30,4 +29,91 @@ spec:
       volumes:
       - name: bobo-volume
         persistentVolumeClaim:
-          claimName: pvc-bobo
+          claimName: pvc-myfbs
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: fbs-bobo
+  labels:
+    run: fbs.bobo
+spec:
+  containers:
+  - name: myfbs
+    image: quay.io/hahappyman/alp.myfbs:latest
+    imagePullPolicy: IfNotPresent
+    ports:
+     - containerPort: 4000
+    volumeMounts:
+    - mountPath: /srv
+      name: myfbs-volume
+  volumes:
+  - name: myfbs-volume
+    persistentVolumeClaim:
+      claimName: pvc-myfbs
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: mydb
+  name: mydb
+spec:
+  containers:
+  - image: quay.io/cooloo9871/mydb
+    name: mydb
+    ports:
+     - containerPort: 3306
+    volumeMounts:
+    - mountPath: /var/lib/mysql
+      name: mysql-volume
+  volumes:
+  - name: mysql-volume
+    persistentVolumeClaim:
+      claimName: pvc-mysql
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-myfbs
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Gi
+  storageClassName: local-path
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-mysql
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Gi
+  storageClassName: local-path
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: svc-bobo
+spec:
+  selector:
+    run: bobo
+  ports:
+  - port: 80
+    targetPort: 8080
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: svc-mydb
+spec:
+  selector:
+    run: mydb
+  ports:
+  - port: 80
+    targetPort: 9090
