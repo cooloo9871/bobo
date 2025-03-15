@@ -14,7 +14,8 @@ spec:
       labels:
         run: bobo
     spec:
-      nodeName: tkllm-worker1
+      nodeSelector:
+        kubernetes.io/hostname: tkllm-worker1
       containers:
       - image: quay.io/hahappyman/alp.goweb:v2
         name: myweb
@@ -39,7 +40,8 @@ metadata:
   labels:
     run: fbs.bobo
 spec:
-  nodeName: tkllm-worker1
+  nodeSelector:
+    kubernetes.io/hostname: tkllm-worker1
   containers:
   - name: myfbs
     image: quay.io/hahappyman/alp.myfbs:latest
@@ -61,7 +63,8 @@ metadata:
     run: mydb
   name: mydb
 spec:
-  nodeName: tkllm-worker2
+  nodeSelector:
+    kubernetes.io/hostname: tkllm-worker2
   containers:
   - image: quay.io/cooloo9871/mydb
     name: mydb
