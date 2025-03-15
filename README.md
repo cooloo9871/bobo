@@ -9,4 +9,5 @@ $ wget https://raw.githubusercontent.com/cooloo9871/bobo/refs/heads/main/deploym
 $ kubectl apply -f deployment-bobo.yaml
 ```
 
-![image](https://github.com/user-attachments/assets/bc76f652-573b-4fab-8a02-13de3c00b85d)
+![image](https://github.com/user-attachments/assets/51b93632-8482-4687-8e22-93ef7f631808)
+
